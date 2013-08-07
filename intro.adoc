@@ -1,0 +1,32 @@
+= Intro to ClojureScript
+:author:    Tim Gilbert
+:source-highlighter: pygments
+:backend: slidy
+:max-width: 45em
+
+This is some random text.
+
+Clojure Source
+--------------
+[source,clojure]
+.Clojure source
+------------------------------------------------------
+(defn append-todo [$list value]
+  (let [$new (jq/clone ($ "#templates .item"))
+        $list ($ :#todo-list)]
+    (log value $new $list)
+    (jq/text $new value)
+    (jq/append $new $list)))
+------------------------------------------------------
+
+Here's a slide
+--------------
+
+Sagittis in vestibulum. Habitasse ante nulla enim bibendum nulla. Odio
+sed pede litora.
+
+
+This is the last slide
+----------------------
+
+Questions?
