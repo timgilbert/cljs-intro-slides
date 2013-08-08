@@ -13,7 +13,7 @@
 - More ClojureScript
 - Questions and Answers
 
-== An Abreviated History of Lisp Dialects
+== An Abbreviated History of Lisp Dialects
 [role="incremental"]
 * LISP 1.0, 1958
 ** LISt Processor, invented by John McCarthy
@@ -43,35 +43,33 @@
 [source,common-lisp]
 .Example
 ------------------------------------------------------
-(+ 3 4 5 6)
-; => 18
-(/ (+ 3 4 5 6) 2)
-; => 9
-(= 9 (/ (+ 3 4 5 6) 2))
-; => T
-(= 7 (/ (+ 3 4 5 6) 2))
-; => NIL
+(+ 3 4 5 6)                     ; => 18
+(/ (+ 3 4 5 6) 2)               ; => 9
+(= 9 (/ (+ 3 4 5 6) 2))         ; => T
+(= 7 (/ (+ 3 4 5 6) 2))         ; => NIL
+(string-upcase "hello")         ; => "HELLO"
+(string-concat (string-upcase "hello,") "there")
+                                ; => "HELLO,there"
 ------------------------------------------------------
 
 == Lisp: List Processing
 
-- The quote macro prevents items from being evaluated
-- Various functions exist to operate on lists
-- `car` and `cdr` are names derived from
+- The quote macro `'` prevents items from being evaluated
+- The function `(list x y z)` produces the list `(x y z)`
+- `car` and `cdr` are names derived from from the names of
+  registers on the IBM 704
 
 [source,common-lisp]
 .Example
 ------------------------------------------------------
-'(1 2 3 4)
-; => (1 2 3 4)
-(list 1 (+ 1 1) 3 4)
-; => (1 2 3 4)
-'(1 (+ 1 1) 3 4)
-; => '(1 (+ 1 1) 3 4)
-(car '(1 2 3 4))
-; => 1
-(cdr '(1 2 3 4))
-; => (2 3 4)
+'(1 2 3 4)                      ; => (1 2 3 4)
+(list 1 (+ 1 1) 3 4)            ; => (1 2 3 4)
+'(1 (+ 1 1) 3 4)                ; => (1 (+ 1 1) 3 4)
+(car '(1 2 3 4))                ; => 1
+;; Equivalent: (first '(1 2 3 4))
+(cdr '(1 2 3 4))                ; => (2 3 4)
+;; Equivalent: (rest '(1 2 3 4))
+(cadadr '(1 (20 30) 4 5 6))     ; => 30
 ------------------------------------------------------
 
 == Lisp: Functions
@@ -86,14 +84,10 @@
 ------------------------------------------------------
 (defun square (x)
   (* x x))
-; => SQUARE
-(square 4)
-; => 9
-(mapcar #'square '(1 2 3 4 5))
-; => (1 4 9 16 25)
+(square 4)                      ; => 9
+(mapcar #'square '(1 2 3 4 5))  ; => (1 4 9 16 25)
 (mapcar #'(lambda (x) (+ x 5))
-        '(10 20 30))
-; => (15 25 35)
+        '(10 20 30))            ; => (15 25 35)
 ------------------------------------------------------
 
 == Lisp: Recursion
@@ -109,18 +103,67 @@
       0
       (+ (car input)
          (sum-list (cdr input)))))
-; => SUM-LIST
-(sum-list '(3 4 5))
-; => 12
-(sum-list '())
-; => 0
+
+(sum-list '(3 4 5))          ; => 12
+(sum-list '())               ; => 0
 ------------------------------------------------------
 
 == Lisp: Macros
 
-== Clojure Basics
+- Lisp is homoiconic; its programs are comprised of lists
+- That lends itself to code which manipulates or produces other code
+- Macros can be used to invent your own control structures, by controlling
+  what elements are evaluated
 
-- Lisp + sugar + jvm
+[source,common-lisp]
+.Example
+------------------------------------------------------
+(defmacro if-not (condition true-form false-form)
+  `(if (not ,condition) ,true-form ,false-form)))
+
+(if-not (= 3 4) "true-value" "false-value")
+; => "true-value"
+(macroexpand-1 '(if-not (= 3 4) "true-value" "false-value"))
+' => (IF (NOT (= 3 4)) "true-value" "false-value")
+------------------------------------------------------
+
+== Clojure: Features
+
+[role="incremental"]
+* Lisp, but not Common Lisp
+** Standard library written from the ground up
+** Syntax sugar for data structures (maps, sets, vectors)
+
+* Specifically targeted to the JVM
+** Compiles to JVM bytecode
+** Good interoperability with Java libraries
+
+* Concurrency primitives in the standard library
+** STM: agents, refs, atoms.
+
+* Prefers purely-functional programming styles and idioms
+** Immutable data structures
+** Imperative style is still possible, but de-emphasized
+
+== Clojure: Code
+
+[source,clojure]
+.Example
+------------------------------------------------------
+(defn indexable? [word]
+  (> (count word) 2)
+(indexable? "to")               ; => false
+(indexable? "clojure")          ; => true
+(filter indexable? '("I" "am" "writing" "in" "clojure"))
+                                ; => ("writing" "clojure")
+------------------------------------------------------
+
+- Parameter list: `[word]`. Square brackets construct a _vector_ (list
+  with good random-access performance).
+- No need for sharp-quotes; `indexable?` by itself evaluates to the
+  function object
+
+== Clojure: Maps
 
 == ClojureScript
 
