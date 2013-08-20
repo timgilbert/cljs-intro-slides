@@ -1,5 +1,6 @@
 = Intro to ClojureScript
-:author:    Tim Gilbert
+:author:    Tim Gilbert <timothy_L.gilbert@nytimes.com>
+:docdate: 2013-08-23
 :source-highlighter: pygments
 :backend: slidy
 :max-width: 45em
@@ -34,14 +35,7 @@
 ** ClojureScript: Clojure-to-Javascript compiler
 
 == Lisp: Basics
-
-- Basic primitives: numbers, strings, boolean, more
-- Things to be evaluated are "forms" (eg, lists input to the repl)
-- When a list is evaluated, the first element is a function
-  and the rest are arguments
-
 [source,common-lisp]
-.Example
 ------------------------------------------------------
 (+ 3 4 5 6)                     ; => 18
 (/ (+ 3 4 5 6) 2)               ; => 9
@@ -52,15 +46,14 @@
                                 ; => "HELLO,there"
 ------------------------------------------------------
 
+- Basic elements: numbers, strings, booleans, lists
+- Things to be evaluated are "forms" (eg, lists input to the repl)
+- When a list is evaluated, the first element is a function
+  and the rest are arguments
+- Arguments are recursively evaluated one at a time from left to right
+
 == Lisp: List Processing
-
-- The quote macro `'` prevents items from being evaluated
-- The function `(list x y z)` produces the list `(x y z)`
-- `car` and `cdr` are names derived from from the names of
-  registers on the IBM 704
-
 [source,common-lisp]
-.Example
 ------------------------------------------------------
 '(1 2 3 4)                      ; => (1 2 3 4)
 (list 1 (+ 1 1) 3 4)            ; => (1 2 3 4)
@@ -72,17 +65,13 @@
 (cadadr '(1 (20 30) 4 5 6))     ; => 30
 ------------------------------------------------------
 
+- The quote macro `'` prevents items from being evaluated
+- The function `(list x y z)` evaluates to the list `(x y z)`
+- `car` and `cdr` are names derived from from the names of
+  registers on the IBM 704
+
 == Lisp: Functions
-
-- Functions are first-class (can be passed as arguments, returned
-  from other functions, etc)
-- The usual functional programming suspects exist (`map`, `reduce`,
-  `filter`, etc)
-- Common lisp needs sharp-quote (`#'`) for function quoting
-- Lambda expressions exist (and must also be sharp-quoted)
-
 [source,common-lisp]
-.Example
 ------------------------------------------------------
 (defun square (x)
   (* x x))
@@ -92,13 +81,15 @@
         '(10 20 30))            ; => (15 25 35)
 ------------------------------------------------------
 
+- Functions are first-class (can be passed as arguments, returned
+  from other functions, etc)
+- The usual functional programming suspects exist (`map`, `reduce`,
+  `filter`, etc)
+- Common lisp needs sharp-quote (`#'`) for function quoting
+- Lambda expressions exist (and must also be sharp-quoted)
+
 == Lisp: Recursion
-
-- Lisp includes both functional and imperative constructs
-- Lists lend themselves well to recursive processing
-
 [source,common-lisp]
-.Example
 ------------------------------------------------------
 (defun sum-list (input)
   (if (null input)
@@ -110,17 +101,16 @@
 (sum-list '())               ; => 0
 ------------------------------------------------------
 
-(Note, example is not tail-call optimised)
+- Lisp includes both functional and imperative constructs
+- Lists lend themselves well to recursive processing
+
+.Note
+**************
+This example is not tail-call optimised
+**************
 
 == Lisp: Macros
-
-- Lisp is _homoiconic_; its programs are comprised of lists
-- That lends itself to code which manipulates or produces other code
-- Macros can be used to invent your own control structures, by controlling
-  what elements are evaluated
-
 [source,common-lisp]
-.Example
 ------------------------------------------------------
 (defmacro if-not (condition true-form false-form)
   `(if (not ,condition) ,true-form ,false-form)))
@@ -131,10 +121,17 @@
 ' => (IF (NOT (= 3 4)) "true-value" "false-value")
 ------------------------------------------------------
 
+- Lisp is _homoiconic_; its programs are comprised of lists
+- That lends itself to code which manipulates or produces other code
+- Macros can be used to invent your own control structures, by controlling
+  what elements are evaluated
+
+
+**************
 Next up: Clojure
+**************
 
 == Clojure: Features
-
 [role="incremental"]
 * Lisp, but not Common Lisp
 ** Standard library written from the ground up
@@ -152,10 +149,8 @@ Next up: Clojure
 ** Imperative style is still possible, but de-emphasized
 ** Not particularly object-oriented
 
-== Clojure: Code
-
+== Clojure: Some Code
 [source,clojure]
-.Example
 ------------------------------------------------------
 (defn indexable? [word]
   "Return true if word should be included in the index"
@@ -170,22 +165,15 @@ Next up: Clojure
 - Parameter list: `[word]`. Square brackets construct a _vector_.
 - Vectors are like lists, but with good random-access performance.
 - Vectors evaluate to themselves (vs lists which must be quoted)
-- Note: no need for sharp-quotes; `indexable?` by itself evaluates to the
+- No need for sharp-quotes; `indexable?` by itself evaluates to the
   function object
 
 == Clojure: Maps and keywords
-
-- Keywords, written as `:name`, evaluate to themselves and are _interned_
-  (there is only ever a single instance per name)
-- Maps are written as `{key1 value1 key2 value2 ...}`
-- Keywords are convenient (but not required) as the keys in maps
-- Commas are whitespace
-
 [source,clojure]
-.Maps and keywords
 ------------------------------------------------------
-{:title "The Joy of Clojure", :pages 360,
- :authors ["Michael Fogus" "Chris Houser"]}
+(def m {:title "The Joy of Clojure", :pages 360,
+        :authors ["Michael Fogus" "Chris Houser"]})
+(get m :pages)                   ; => 360
 
 :my-keyword                      ; => :my-keyword
 
@@ -194,10 +182,15 @@ Next up: Clojure
 (str :kw)                        ; => ":kw"
 ------------------------------------------------------
 
-== Clojure: Working with Maps
+- Keywords, written as `:name`, evaluate to themselves and are _interned_
+  (there is only ever a single instance per name)
+- Maps are written as `{key1 value1 key2 value2 ...}`
+- Keywords are convenient (but not required) as the keys in maps
+- Commas are whitespace
 
+== Clojure: Working with Maps
 [source,clojure]
-.Maps and keywords
+.More maps and keywords
 ------------------------------------------------------
 ;; Maps can be called as functions which produce their values
 ({:a 1 :b 2 :c 3} :a)           ; => 1
@@ -208,20 +201,13 @@ Next up: Clojure
 (:a {:a 1 :b 2 :c 3})           ; => 1
 (:nope {:a 1 :b 2 :c 3})        ; => nil
 
-;; You can specifc default values in either case
+;; You can specify default values in either case
 (:nope {:a 1 :b 2 :c 3} "default")  ; => "default"
 ({:a 1 :b 2 :c 3} :oops 72)     ; => 72
 ------------------------------------------------------
 
 == Clojure: Namespaces
-
-* Namespaces are roughly similar to python modules or java packages
-* The `ns` macro is used to define and import namespaces
-* Lots of options for how to import and refer to namespaces
-* Syntax for referrring to objects in other namespaces is `ns/name`
-
 [source,clojure]
-.Namespaces
 ------------------------------------------------------
 (ns demo.core "Optional docstring"
   (require [compojure.route :as route]
@@ -235,14 +221,34 @@ Next up: Clojure
 (debug "This is a log statement")   ; From compojure.tools.logging
 ------------------------------------------------------
 
-== Clojure: Let
+- Namespaces are roughly analagous to python modules or java packages
+- The `ns` macro is used to define and import namespaces
+- Lots of options for how to import and refer to namespaces
+- Syntax for referring to objects in imported namespaces is `ns/name`
 
-* Let is used to define lexically-scoped local variables
-* Note that variables, once bound, cannot be redefined
-* Let can be used to create closures over lexical scope
-
+== Clojure: More Function Syntax
 [source,clojure]
-.Let
+------------------------------------------------------
+;; reduce applies the same function to adjoining items in a list
+;; fn is just like defn, but returns an anonymous function
+(reduce (fn [x y] (str x "-" y))
+        [123 456 "abc" 0])      ; => "123-456-abc-0"
+
+;; #() syntax uses %1, %2, %3... values as arguments
+(reduce #(str %1 ":" %2)
+        [123 456 "abc" 0])      ; => "123:456:abc:0"
+
+;; Single-argument functions can just use % as the argument name
+(map #(str %) [1 2 3 4])        ; => ("1" "2" "3" "4")
+
+(map #(* % %) [1 2 3 4 5])      ; => (1 4 9 16 25)
+------------------------------------------------------
+
+- `fn` returns an anonymous function (not bound to a namespace)
+- The `#( ... )` syntax also returns anonymous functions
+
+== Clojure: Let and Lexical Closures
+[source,clojure]
 ------------------------------------------------------
 (defn log-username [json-string]
   (let [parsed-data (json/read-json json-string)
@@ -250,20 +256,159 @@ Next up: Clojure
     (log/debug username)))
 
 (let [num 4]
-  (defn add [i] (+ i num)))
+  (defn addnum [i] (+ i num)))
+(addnum 6)                         ; => 10
 
-(add 6)                         ; => 10
+(defn adder [amount] (fn [x] (+ x amount)))
+(def plus5 (adder 5))
+(plus5 10)                         ; => 15
 ------------------------------------------------------
 
+- Let is used to define lexically-scoped local variables
+- Note that variables, once bound, cannot be redefined
+- Let can be used to create closures over lexical scope
+
 == Clojure: Destructuring
+[source,clojure]
+------------------------------------------------------
+(defn destr [[one two & tail]]
+  (str one "-" two ":" tail))
+(destr [1 2 3 4 5 6])           ; => "1-2:(3 4 5 6)"
+
+(defn full [{first :fname, last :lname}]
+  (str first " " last))
+(full {:fname "Bob", :lname "Dobbs"})   ; => "Bob Dobbs"
+
+(defn coord [{x-pos :x, y-pos :y :or {x-pos 0, y-pos 0}}]
+  (str x-pos "," y-pos))
+(coord {:x 1, :y 2})            ; => "1,2"
+(coord {:y 7})                  ; => "0,7"
+(coord {})                      ; => "0,0"
+------------------------------------------------------
+
+- Similar to python tuple-unpacking; args can be picked by position or keyword value
+  and can be arbitrarily nested
+- This works for let bindings as well as function definitions
+
+== Clojure: Recursion
+[source,clojure]
+------------------------------------------------------
+(defn factorial [n]
+  (loop [cnt n acc 1]
+    (if (zero? cnt)
+      acc
+      (recur (dec cnt) (* acc cnt)))))
+
+(factorial 3)                   ; => 6
+------------------------------------------------------
+
+- Because the JVM does not support tail-call optimisation by default,
+  tail-call recursion in Clojure is done via the `(recur)` special form
+- The `(loop)` macro can be used as a `recur` target, handy for accumulators
+- Clojure compiles this to goto-based code which does not consume stack frames
+- As a bonus, the compiler will verify that your recursion is in tail-position
+
+== Clojure: Java Interoperability
+[source,clojure]
+------------------------------------------------------
+(System/getProperty "os.name")  ; => "Mac OS X"
+
+;; Call the "startsWith" method on the object "abcdef" with
+;; the argument "abc"
+(.startsWith "abcdef" "abc")    ; => true
+
+(def java-map (new java.util.HashMap))
+(.put java-map "key" 123)       ; => nil
+java-map                        ; => {"key" 123}
+------------------------------------------------------
+
+* Clojure strings are Java string primitives
+* Clojure collection types implement Java Collections API interfaces
+* Various syntax sugar exists for directly accessing Java methods
+
+== Clojure: The Threading Macros: `->` and `->>`
+[source,clojure]
+------------------------------------------------------
+(-> 3 (+ 3) (/ 2) (- 7))        ; => -4
+
+(macroexpand-all '(-> 3 (+ 3) (/ 2) (- 7)))
+; => (- (/ (+ 3 3) 2) 7)
+
+(-> "a b c d" .toUpperCase (.replace "A" "X") (.split " ") first)
+
+;; Possibly clearer expression of above
+(-> "a b c d"
+    (.toUpperCase ,,,)
+    (.replace ,,, "A" "X")
+    (.split ,,, " ")
+    (first ,,,))                ; => "X"
+------------------------------------------------------
+
+- These are not easy to google, but sometimes called the "thread-first"
+  and "thread-last" macros
+- `->` inserts results as the second argument to subsequent functions,
+  `->>` inserts results as the last argument
 
 == Clojure: Laziness
 
-* Many Clojure functions operate on _lazy_ sequences
-* In these, values are computed ("realized") only as they are needed
+- Many Clojure functions operate on _lazy_ sequences
+- Values are computed ("realized") only as they are needed
+- This lets you operate on (theorically) infinite sequences
+- Beware of holding references to the heads of lazy sequences
 
-== Clojure: Concurrency and State Management
+== Clojure: Concurrency, Parallelism and State
 
+- Clojure comes with four built-in constructs for managing state
+- These are also used for concurrency management
+
+[horizontal]
+Refs:: Manage access to multiple memory locations in synchronous transactions
+Agents:: Manage an async queue of updates to a single location
+Atoms:: Manage atomic access to shared state
+Vars :: Manage access to dynamically-scoped global vars via thread isolation
+
+- Other facilities: promises and futures
+- Parallel calls: `pcalls`, `pvalues`, and `pmap`
+- Also worth noting: the recently-unveiled `core.async`
+
+== Clojure: Atoms
+[source,clojure]
+------------------------------------------------------
+(def a (atom []))
+@a                              ; => []
+
+(swap! a (fn [current-value] (conj current-value "hello")))
+@a                              ; => ["hello"]
+
+(swap! a (fn [current-value] (conj current-value "hello")))
+@a                              ; => ["hello" "hello"]
+
+(reset! a [])
+@a                              ; => []
+------------------------------------------------------
+
+- An atom holds a reference to a single mutable value
+- The atom is updated by applying a function to it which
+  returns its new value; changes are _atomic_ (only a single
+  thread will be running `swap!` at once).
+- Atoms are dereferenced via the `@` macro, returning the current value
+
+== Clojure: Fairly Major Topics I Didn't Cover
+
+* Built-in syntax for sets: `#{:a :b :c}` and regular expressions: `#"ab[0-9]+"`
+* Metadata can be set and queried for most objects
+* More Java interoperability - gen-class, proxy, type hinting
+* Pre and post-conditions on functions
+* Protocols, records and datatypes
+* Multimethods (multiple dispatch based on argument type)
+* Trampolining (mutual recursion without stack consumption)
+* Vars, thread-local bindings and dynamic scoping
+* Seqs and sequence functions
+* Exception handling
+
+**************
+Next up: ClojureScript
+**************
 == ClojureScript: Features
 
 * Clojure compiled to JavaScript
@@ -271,11 +416,15 @@ Next up: Clojure
 * Due to this, also comes with `goog.*` Closure libraries
 * Runs in browser or node.js
 * Still requires JVM for compilation, including macro processing
+** Compiled code has no JVM dependency
 
 == ClojureScript: Differences from Clojure
 
 * No STM (also no refs or agents)
 * Atoms work as in Clojure, but are single-threaded
+* No pre- and post-conditions on functions
+* ns macro has a few differences
+* Host language interoperability is slightly different
 
 == It's the song I hate
 
@@ -290,23 +439,16 @@ Next up: Clojure
 2. Blog from 8thlight.com: actually pretty good documentation, but out of date.
 3. ClojureDocs.org - weirdly out of date. "You're viewing version 1.2.0 of ns. The
    latest stable version of Clojure Core is 1.3.0." But latest version is really 1.5.1.
-    1. At bottom: link to #2, "Good description of use/require/import here."
+   At bottom: link to #2, "Good description of use/require/import here."
 4. http://stackoverflow.com/questions/871997/difference-between-use-and-require
    Can anyone explain the difference between use and require, both when used directly and
    as :use and :require in the ns macro?
-    1. First comment: see http://stackoverflow.com/questions/10358149/in-clojure-1-4-what-is-the-use-of-refer-within-require
-        1. First answer: "Main idea of adding :refer to :require is to get rid completely of :use,
-           leaving only one operator to load other packages. You can emulate existing :use with
-           (:require [my.lib :refer :all])..."
-            1. Link to JIRA ticket which links to clojure-dev list calling :use "confusing to new users"
+   First comment: see http://stackoverflow.com/questions/10358149/in-clojure-1-4-what-is-the-use-of-refer-within-require
 
 == ClojureScript
 
 == TODO
 
-* primitives - mention symbol, focus on keyword
-
-* let and closures
 
 * Thrush/threading operator (-> ->>)
 ** http://www.learningclojure.com/2010/02/watching-macro-as-it-expands.html
