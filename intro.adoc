@@ -9,10 +9,11 @@
 
 == Agenda
 - Lisp Refresher
-- Clojure
+- Whirlwind tour of Clojure
 - ClojureScript
-- More ClojureScript
-- Questions and Answers
+- Quick Notes on the software ecosystem
+- Demo
+- Q & A
 
 == An Abbreviated History of Lisp Dialects
 [role="incremental"]
@@ -23,7 +24,7 @@
 ** Minimalist, functional variant
 ** First dialect to implement tail-call optimization
 
-* Common Lisp, 1984
+* _Common Lisp the Language_, 1984
 ** Unified different dialects into de facto standard
 
 * ANSI Standard Common Lisp, 1994
@@ -350,6 +351,17 @@ java-map                        ; => {"key" 123}
   `->>` inserts results as the last argument
 
 == Clojure: Laziness
+[source,clojure]
+------------------------------------------------------
+;; (iterate) takes a function and a starting value and produces an infinite sequence
+;; (take n seq) lazily takes the first n members of a sequence
+(take 3 (iterate inc 1))        ; => (1 2 3)
+
+(take 4 (map #(* 3 %) (iterate inc 1)))
+                                ; => (3 6 9 12)
+
+(nth (iterate inc 1) 1000000)   ; => 1000001
+------------------------------------------------------
 
 - Many Clojure functions operate on _lazy_ sequences
 - Values are computed ("realized") only as they are needed
@@ -414,6 +426,7 @@ Next up: ClojureScript
 * Clojure compiled to JavaScript
 * Uses Google Closure compiler for optimization
 * Due to this, also comes with `goog.*` Closure libraries
+** Uses Google Closure's dependency resolution mechanism
 * Runs in browser or node.js
 * Still requires JVM for compilation, including macro processing
 ** Compiled code has no JVM dependency
@@ -426,46 +439,43 @@ Next up: ClojureScript
 * ns macro has a few differences
 * Host language interoperability is slightly different
 
-== It's the song I hate
+== Tools and Links
 
-* state of open-source clojure
-** colojuredocs.org
+* https://github.com/technomancy/leiningen[leiningen]: build tool, packager, runner,
+  dependency manager, Maven replacement. `brew install leiningen`
+** Outstanding build tool with lots of features. Near-universal acceptance in
+   the Clojure community.
 
-* Example - search for namespace documentation https://www.google.com/search?hl=en&q=clojure%20ns%20macro
-* Google "clojure ns macro"
-* Top 4 results: clojure.org/namespaces‎, blog.8thlight.com/.../clojure-libs-and-namespaces...,
-  ClojureDocs: clojure.core/ns., StackOverflow: clojure - difference between use and require
-1. clojure.org/namespaces: precise but bad documentation
-2. Blog from 8thlight.com: actually pretty good documentation, but out of date.
-3. ClojureDocs.org - weirdly out of date. "You're viewing version 1.2.0 of ns. The
-   latest stable version of Clojure Core is 1.3.0." But latest version is really 1.5.1.
-   At bottom: link to #2, "Good description of use/require/import here."
-4. http://stackoverflow.com/questions/871997/difference-between-use-and-require
-   Can anyone explain the difference between use and require, both when used directly and
-   as :use and :require in the ns macro?
-   First comment: see http://stackoverflow.com/questions/10358149/in-clojure-1-4-what-is-the-use-of-refer-within-require
+* Editors: support exists in Eclipse, IntelliJ IDEA, NetBeans, Sublime Text, vi, Emacs
+** Plus up and comers: http://www.lighttable.com/[LightTable],
+   http://nightcode.info/[Nightcode], https://github.com/arthuredelstein/clooj[clooj],
+   https://github.com/bodil/catnip[catnip]
 
-== ClojureScript
+* Testing: clojure.test, https://github.com/marick/Midje[Midje]
 
-== TODO
+* Library discovery: http://www.clojure-toolbox.com/[Clojure Toolbox], https://clojars.org/[Clojars]
 
+* Uberframeworks: http://pedestal.io/[Pedestal], with an 8 hour tutorial
 
-* Thrush/threading operator (-> ->>)
-** http://www.learningclojure.com/2010/02/watching-macro-as-it-expands.html
+* http://himera.herokuapp.com/synonym.html[Himera], an online CLJS interpreter
 
-* also clj vs cljs macro processing
+* http://www.infoq.com/clojure-west/[Clojure/West talks]
 
-* ns macro, namespaces, etc
+== Things That Could Be Better
 
-== See also
+* Core documentation at clojure.org
+** It's abysmal. Poorly formatted, over-precise, and with virtually no examples.
+** Attempts to replace it with better resources (eg, clojuredocs.org) have stalled.
 
-Himera: online CLJS interpreter
-http://himera.herokuapp.com/synonym.html
+* Clojure is past its intial hype wave and some initial enthusiasts users have
+  moved on, so a lot of projects are starting to get creaky
 
-Clojure-scheme: clojure -> scheme -> C -> iOS
-http://www.infoq.com/presentations/clojure-scheme
+* Changes to core (eg, deprecation of `(:use)` namespace macro) are not well-documented
 
-Floukitten: category theory in Clojure
+* Example: try googling "clojure ns macro"
+
+== DEMO
+
 
 == That's it
 

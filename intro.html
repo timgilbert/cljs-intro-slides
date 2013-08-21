@@ -3912,7 +3912,7 @@ Lisp Refresher
 </li>
 <li>
 <span>
-Clojure
+Whirlwind tour of Clojure
 </span>
 </li>
 <li>
@@ -3922,12 +3922,17 @@ ClojureScript
 </li>
 <li>
 <span>
-More ClojureScript
+Quick Notes on the software ecosystem
 </span>
 </li>
 <li>
 <span>
-Questions and Answers
+Demo
+</span>
+</li>
+<li>
+<span>
+Q &amp; A
 </span>
 </li>
 </ul>
@@ -3968,7 +3973,7 @@ First dialect to implement tail-call optimization
 </li>
 <li>
 <span>
-Common Lisp, 1984
+<em>Common Lisp the Language</em>, 1984
 </span>
 <ul class="">
 <li>
@@ -4609,6 +4614,16 @@ These are not easy to google, but sometimes called the "thread-first"
 <div class="sect1 slide">
 <h1 id="_clojure_laziness">Clojure: Laziness</h1>
 <div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="c1">;; (iterate) takes a function and a starting value and produces an infinite sequence</span>
+<span class="c1">;; (take n seq) lazily takes the first n members of a sequence</span>
+<span class="p">(</span><span class="nb">take </span><span class="mi">3</span> <span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">))</span>        <span class="c1">; =&gt; (1 2 3)</span>
+
+<span class="p">(</span><span class="nb">take </span><span class="mi">4</span> <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">* </span><span class="mi">3</span> <span class="nv">%</span><span class="p">)</span> <span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">)))</span>
+                                <span class="c1">; =&gt; (3 6 9 12)</span>
+
+<span class="p">(</span><span class="nb">nth </span><span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">)</span> <span class="mi">1000000</span><span class="p">)</span>   <span class="c1">; =&gt; 1000001</span>
+</pre></div></div></div>
 <ul class="">
 <li>
 <span>
@@ -4827,6 +4842,13 @@ Uses Google Closure compiler for optimization
 <span>
 Due to this, also comes with <code>goog.*</code> Closure libraries
 </span>
+<ul class="">
+<li>
+<span>
+Uses Google Closure&#8217;s dependency resolution mechanism
+</span>
+</li>
+</ul>
 </li>
 <li>
 <span>
@@ -4881,96 +4903,100 @@ Host language interoperability is slightly different
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_it_8217_s_the_song_i_hate">It&#8217;s the song I hate</h1>
+<h1 id="_tools_and_links">Tools and Links</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-state of open-source clojure
+<a href="https://github.com/technomancy/leiningen">leiningen</a>: build tool, packager, runner,
+  dependency manager, Maven replacement. <code>brew install leiningen</code>
 </span>
 <ul class="">
 <li>
 <span>
-colojuredocs.org
+Outstanding build tool with lots of features. Near-universal acceptance in
+   the Clojure community.
 </span>
 </li>
 </ul>
 </li>
 <li>
 <span>
-Example - search for namespace documentation <a href="https://www.google.com/search?hl=en&amp;q=clojure%20ns%20macro">https://www.google.com/search?hl=en&amp;q=clojure%20ns%20macro</a>
+Editors: support exists in Eclipse, IntelliJ IDEA, NetBeans, Sublime Text, vi, Emacs
+</span>
+<ul class="">
+<li>
+<span>
+Plus up and comers: <a href="http://www.lighttable.com/">LightTable</a>,
+   <a href="http://nightcode.info/">Nightcode</a>, <a href="https://github.com/arthuredelstein/clooj">clooj</a>,
+   <a href="https://github.com/bodil/catnip">catnip</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span>
+Testing: clojure.test, <a href="https://github.com/marick/Midje">Midje</a>
 </span>
 </li>
 <li>
 <span>
-Google "clojure ns macro"
+Library discovery: <a href="http://www.clojure-toolbox.com/">Clojure Toolbox</a>, <a href="https://clojars.org/">Clojars</a>
 </span>
 </li>
 <li>
 <span>
-Top 4 results: clojure.org/namespaces‎, blog.8thlight.com/&#8230;/clojure-libs-and-namespaces&#8230;,
-  ClojureDocs: clojure.core/ns., StackOverflow: clojure - difference between use and require
-</span>
-<ol class="arabic">
-<li>
-<span>
-clojure.org/namespaces: precise but bad documentation
+Uberframeworks: <a href="http://pedestal.io/">Pedestal</a>, with an 8 hour tutorial
 </span>
 </li>
 <li>
 <span>
-Blog from 8thlight.com: actually pretty good documentation, but out of date.
+<a href="http://himera.herokuapp.com/synonym.html">Himera</a>, an online CLJS interpreter
 </span>
 </li>
 <li>
 <span>
-ClojureDocs.org - weirdly out of date. "You&#8217;re viewing version 1.2.0 of ns. The
-   latest stable version of Clojure Core is 1.3.0." But latest version is really 1.5.1.
-   At bottom: link to #2, "Good description of use/require/import here."
+<a href="http://www.infoq.com/clojure-west/">Clojure/West talks</a>
 </span>
-</li>
-<li>
-<span>
-<a href="http://stackoverflow.com/questions/871997/difference-between-use-and-require">http://stackoverflow.com/questions/871997/difference-between-use-and-require</a>
-   Can anyone explain the difference between use and require, both when used directly and
-   as :use and :require in the ns macro?
-   First comment: see <a href="http://stackoverflow.com/questions/10358149/in-clojure-1-4-what-is-the-use-of-refer-within-require">http://stackoverflow.com/questions/10358149/in-clojure-1-4-what-is-the-use-of-refer-within-require</a>
-</span>
-</li>
-</ol>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_clojurescript">ClojureScript</h1>
-<div class="sectionbody" style="max-width:45em">
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_todo">TODO</h1>
+<h1 id="_things_that_could_be_better">Things That Could Be Better</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
 <li>
 <span>
-Thrush/threading operator (&#8594; &#8594;&gt;)
+Core documentation at clojure.org
 </span>
 <ul class="">
 <li>
 <span>
-<a href="http://www.learningclojure.com/2010/02/watching-macro-as-it-expands.html">http://www.learningclojure.com/2010/02/watching-macro-as-it-expands.html</a>
+It&#8217;s abysmal. Poorly formatted, over-precise, and with virtually no examples.
+</span>
+</li>
+<li>
+<span>
+Attempts to replace it with better resources (eg, clojuredocs.org) have stalled.
 </span>
 </li>
 </ul>
 </li>
 <li>
 <span>
-also clj vs cljs macro processing
+Clojure is past its intial hype wave and some initial enthusiasts users have
+  moved on, so a lot of projects are starting to get creaky
 </span>
 </li>
 <li>
 <span>
-ns macro, namespaces, etc
+Changes to core (eg, deprecation of <code>(:use)</code> namespace macro) are not well-documented
+</span>
+</li>
+<li>
+<span>
+Example: try googling "clojure ns macro"
 </span>
 </li>
 </ul>
@@ -4979,11 +5005,6 @@ ns macro, namespaces, etc
 <div class="sect1 slide">
 <h1 id="_see_also">See also</h1>
 <div class="sectionbody" style="max-width:45em">
-<div class="paragraph"><p>Himera: online CLJS interpreter
-<a href="http://himera.herokuapp.com/synonym.html">http://himera.herokuapp.com/synonym.html</a></p></div>
-<div class="paragraph"><p>Clojure-scheme: clojure &#8594; scheme &#8594; C &#8594; iOS
-<a href="http://www.infoq.com/presentations/clojure-scheme">http://www.infoq.com/presentations/clojure-scheme</a></p></div>
-<div class="paragraph"><p>Floukitten: category theory in Clojure</p></div>
 </div>
 </div>
 <div class="sect1 slide">
