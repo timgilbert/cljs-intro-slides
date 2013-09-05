@@ -3907,7 +3907,7 @@ setTimeout(w3c_slidy.hide_slides, 50);
 <ul class="">
 <li>
 <span>
-Lisp Refresher
+Brief background notes
 </span>
 </li>
 <li>
@@ -3917,17 +3917,12 @@ Whirlwind tour of Clojure
 </li>
 <li>
 <span>
-ClojureScript
+Just enough ClojureScript
 </span>
 </li>
 <li>
 <span>
-Quick Notes on the software ecosystem
-</span>
-</li>
-<li>
-<span>
-Demo
+Demo / Coding
 </span>
 </li>
 <li>
@@ -3973,12 +3968,12 @@ First dialect to implement tail-call optimization
 </li>
 <li>
 <span>
-<em>Common Lisp the Language</em>, 1984
+<em>Common Lisp the Language</em>, Guy L. Steele, 1984
 </span>
 <ul class="">
 <li>
 <span>
-Unified different dialects into de facto standard
+Unified different dialects into a de facto standard
 </span>
 </li>
 </ul>
@@ -4021,177 +4016,20 @@ ClojureScript: Clojure-to-Javascript compiler
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_lisp_basics">Lisp: Basics</h1>
+<h1 id="_quick_clojure_repl_demo">Quick Clojure REPL Demo</h1>
 <div class="sectionbody" style="max-width:45em">
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span>                     <span class="c1">; =&gt; 18</span>
-<span class="p">(</span><span class="nb">/</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="mi">2</span><span class="p">)</span>               <span class="c1">; =&gt; 9</span>
-<span class="p">(</span><span class="nb">=</span> <span class="mi">9</span> <span class="p">(</span><span class="nb">/</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="mi">2</span><span class="p">))</span>         <span class="c1">; =&gt; T</span>
-<span class="p">(</span><span class="nb">=</span> <span class="mi">7</span> <span class="p">(</span><span class="nb">/</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="mi">2</span><span class="p">))</span>         <span class="c1">; =&gt; NIL</span>
-<span class="p">(</span><span class="nb">string-upcase</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span>         <span class="c1">; =&gt; &quot;HELLO&quot;</span>
-<span class="p">(</span><span class="nv">string-concat</span> <span class="p">(</span><span class="nb">string-upcase</span> <span class="s">&quot;hello,&quot;</span><span class="p">)</span> <span class="s">&quot;there&quot;</span><span class="p">)</span>
-                                <span class="c1">; =&gt; &quot;HELLO,there&quot;</span>
-</pre></div></div></div>
+<div class="paragraph"><p>Demo goes here.</p></div>
 <ul class="">
 <li>
 <span>
-Basic elements: numbers, strings, booleans, lists
-</span>
-</li>
-<li>
-<span>
-Things to be evaluated are "forms" (eg, lists input to the repl)
-</span>
-</li>
-<li>
-<span>
-When a list is evaluated, the first element is a function
-  and the rest are arguments
-</span>
-</li>
-<li>
-<span>
-Arguments are recursively evaluated one at a time from left to right
-</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_lisp_list_processing">Lisp: List Processing</h1>
-<div class="sectionbody" style="max-width:45em">
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>                      <span class="c1">; =&gt; (1 2 3 4)</span>
-<span class="p">(</span><span class="nb">list</span> <span class="mi">1</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>            <span class="c1">; =&gt; (1 2 3 4)</span>
-<span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>                <span class="c1">; =&gt; (1 (+ 1 1) 3 4)</span>
-<span class="p">(</span><span class="nb">car</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>                <span class="c1">; =&gt; 1</span>
-<span class="c1">;; Equivalent: (first &#39;(1 2 3 4))</span>
-<span class="p">(</span><span class="nb">cdr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>                <span class="c1">; =&gt; (2 3 4)</span>
-<span class="c1">;; Equivalent: (rest &#39;(1 2 3 4))</span>
-<span class="p">(</span><span class="nb">cadadr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="p">(</span><span class="mi">20</span> <span class="mi">30</span><span class="p">)</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">))</span>     <span class="c1">; =&gt; 30</span>
-</pre></div></div></div>
-<ul class="">
-<li>
-<span>
-The quote macro <code>'</code> prevents items from being evaluated
-</span>
-</li>
-<li>
-<span>
-The function <code>(list x y z)</code> evaluates to the list <code>(x y z)</code>
-</span>
-</li>
-<li>
-<span>
-<code>car</code> and <code>cdr</code> are names derived from from the names of
-  registers on the IBM 704
-</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_lisp_functions">Lisp: Functions</h1>
-<div class="sectionbody" style="max-width:45em">
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nb">defun</span> <span class="nv">square</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
-  <span class="p">(</span><span class="nb">*</span> <span class="nv">x</span> <span class="nv">x</span><span class="p">))</span>
-<span class="p">(</span><span class="nv">square</span> <span class="mi">4</span><span class="p">)</span>                      <span class="c1">; =&gt; 16</span>
-<span class="p">(</span><span class="nb">mapcar</span> <span class="nf">#&#39;</span><span class="nv">square</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1">; =&gt; (1 4 9 16 25)</span>
-<span class="p">(</span><span class="nb">mapcar</span> <span class="nf">#&#39;</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+</span> <span class="nv">x</span> <span class="mi">5</span><span class="p">))</span>
-        <span class="o">&#39;</span><span class="p">(</span><span class="mi">10</span> <span class="mi">20</span> <span class="mi">30</span><span class="p">))</span>            <span class="c1">; =&gt; (15 25 35)</span>
-</pre></div></div></div>
-<ul class="">
-<li>
-<span>
-Functions are first-class (can be passed as arguments, returned
-  from other functions, etc)
-</span>
-</li>
-<li>
-<span>
-The usual functional programming suspects exist (<code>map</code>, <code>reduce</code>,
-  <code>filter</code>, etc)
-</span>
-</li>
-<li>
-<span>
-Common lisp needs sharp-quote (<code>#'</code>) for function quoting
-</span>
-</li>
-<li>
-<span>
-Lambda expressions exist (and must also be sharp-quoted)
-</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_lisp_recursion">Lisp: Recursion</h1>
-<div class="sectionbody" style="max-width:45em">
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nb">defun</span> <span class="nv">sum-list</span> <span class="p">(</span><span class="nv">input</span><span class="p">)</span>
-  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">null</span> <span class="nv">input</span><span class="p">)</span>
-      <span class="mi">0</span>
-      <span class="p">(</span><span class="nb">+</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">input</span><span class="p">)</span>
-         <span class="p">(</span><span class="nv">sum-list</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">input</span><span class="p">)))))</span>
-
-<span class="p">(</span><span class="nv">sum-list</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">))</span>          <span class="c1">; =&gt; 12</span>
-<span class="p">(</span><span class="nv">sum-list</span> <span class="o">&#39;</span><span class="p">())</span>               <span class="c1">; =&gt; 0</span>
-</pre></div></div></div>
-<ul class="">
-<li>
-<span>
-Lisp includes both functional and imperative constructs
-</span>
-</li>
-<li>
-<span>
-Lists lend themselves well to recursive processing
+Primitives, lists, strings, vectors, sets, maps, evaluation,
+  quoting, <code>if</code>, <code>do</code>, <code>def</code>.
 </span>
 </li>
 </ul>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Note</div>
-<div class="paragraph"><p>This example is not tail-call optimised</p></div>
-</div></div>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_lisp_macros">Lisp: Macros</h1>
-<div class="sectionbody" style="max-width:45em">
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nb">defmacro</span> <span class="nv">if-not</span> <span class="p">(</span><span class="kt">condition</span> <span class="nv">true-form</span> <span class="nv">false-form</span><span class="p">)</span>
-  <span class="o">`</span><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">not</span> <span class="o">,</span><span class="kt">condition</span><span class="p">)</span> <span class="o">,</span><span class="nv">true-form</span> <span class="o">,</span><span class="nv">false-form</span><span class="p">)))</span>
-
-<span class="p">(</span><span class="nv">if-not</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="s">&quot;true-value&quot;</span> <span class="s">&quot;false-value&quot;</span><span class="p">)</span>
-<span class="c1">; =&gt; &quot;true-value&quot;</span>
-<span class="p">(</span><span class="nb">macroexpand-1</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">if-not</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="s">&quot;true-value&quot;</span> <span class="s">&quot;false-value&quot;</span><span class="p">))</span>
-<span class="o">&#39;</span> <span class="nv">=&gt;</span> <span class="p">(</span><span class="nv">IF</span> <span class="p">(</span><span class="nv">NOT</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span> <span class="s">&quot;true-value&quot;</span> <span class="s">&quot;false-value&quot;</span><span class="p">)</span>
-</pre></div></div></div>
-<ul class="">
-<li>
-<span>
-Lisp is <em>homoiconic</em>; its programs are comprised of lists
-</span>
-</li>
-<li>
-<span>
-That lends itself to code which manipulates or produces other code
-</span>
-</li>
-<li>
-<span>
-Macros can be used to invent your own control structures, by controlling
-  what elements are evaluated
-</span>
-</li>
-</ul>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph"><p>Next up: Clojure</p></div>
+<div class="paragraph"><p>To follow along: <code>brew install leiningen; lein repl</code></p></div>
 </div></div>
 </div>
 </div>
@@ -4228,7 +4066,7 @@ Compiles to JVM bytecode
 </li>
 <li>
 <span>
-Good interoperability with Java libraries
+Extremely good interoperability with Java libraries
 </span>
 </li>
 </ul>
@@ -4240,7 +4078,7 @@ Concurrency primitives in the standard library
 <ul class="">
 <li>
 <span>
-STM: agents, refs, atoms, vars.
+STM (Software Transactional Memory): agents, refs, atoms, vars.
 </span>
 </li>
 </ul>
@@ -4271,7 +4109,7 @@ Not particularly object-oriented
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_clojure_some_code">Clojure: Some Code</h1>
+<h1 id="_clojure_basic_function_definition">Clojure: Basic Function Definition</h1>
 <div class="sectionbody" style="max-width:45em">
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="p">(</span><span class="kd">defn </span><span class="nv">indexable?</span> <span class="p">[</span><span class="nv">word</span><span class="p">]</span>
@@ -4286,23 +4124,17 @@ Not particularly object-oriented
 <ul class="">
 <li>
 <span>
-Parameter list: <code>[word]</code>. Square brackets construct a <em>vector</em>.
+Formal parameters: <code>[word]</code>. Recall that square brackets construct a <em>vector</em>.
 </span>
 </li>
 <li>
 <span>
-Vectors are like lists, but with good random-access performance.
+Including <code>?</code> in the function name is a convention indicating a predicate.
 </span>
 </li>
 <li>
 <span>
-Vectors evaluate to themselves (vs lists which must be quoted)
-</span>
-</li>
-<li>
-<span>
-No need for sharp-quotes; <code>indexable?</code> by itself evaluates to the
-  function object
+<code>indexable?</code> by itself returns to the function object
 </span>
 </li>
 </ul>
@@ -4352,18 +4184,19 @@ Commas are whitespace
 <div class="sectionbody" style="max-width:45em">
 <div class="listingblock">
 <div class="title">More maps and keywords</div>
-<div class="content"><div class="highlight"><pre><span class="c1">;; Maps can be called as functions which produce their values</span>
-<span class="p">({</span><span class="ss">:a</span> <span class="mi">1</span> <span class="ss">:b</span> <span class="mi">2</span> <span class="ss">:c</span> <span class="mi">3</span><span class="p">}</span> <span class="ss">:a</span><span class="p">)</span>           <span class="c1">; =&gt; 1</span>
-<span class="p">({</span><span class="ss">:a</span> <span class="mi">1</span> <span class="ss">:b</span> <span class="mi">2</span> <span class="ss">:c</span> <span class="mi">3</span><span class="p">}</span> <span class="ss">:c</span><span class="p">)</span>           <span class="c1">; =&gt; 3</span>
-<span class="p">({</span><span class="ss">:a</span> <span class="mi">1</span> <span class="ss">:b</span> <span class="mi">2</span> <span class="ss">:c</span> <span class="mi">3</span><span class="p">}</span> <span class="ss">:oops</span><span class="p">)</span>        <span class="c1">; =&gt; nil</span>
+<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="k">def </span><span class="nv">alpha</span> <span class="p">{</span><span class="ss">:a</span> <span class="mi">1</span>, <span class="ss">:b</span> <span class="mi">2</span>, <span class="ss">:c</span> <span class="mi">3</span><span class="p">})</span>
+<span class="c1">;; Maps can be called as functions which produce their values</span>
+<span class="p">(</span><span class="nf">alpha</span> <span class="ss">:a</span><span class="p">)</span>                      <span class="c1">; =&gt; 1</span>
+<span class="p">(</span><span class="nf">alpha</span> <span class="ss">:c</span><span class="p">)</span>                      <span class="c1">; =&gt; 3</span>
+<span class="p">(</span><span class="nf">alpha</span> <span class="ss">:oops</span><span class="p">)</span>                   <span class="c1">; =&gt; nil</span>
 
 <span class="c1">;; Keywords can be used as functions that get values from maps</span>
-<span class="p">(</span><span class="ss">:a</span> <span class="p">{</span><span class="ss">:a</span> <span class="mi">1</span> <span class="ss">:b</span> <span class="mi">2</span> <span class="ss">:c</span> <span class="mi">3</span><span class="p">})</span>           <span class="c1">; =&gt; 1</span>
-<span class="p">(</span><span class="ss">:nope</span> <span class="p">{</span><span class="ss">:a</span> <span class="mi">1</span> <span class="ss">:b</span> <span class="mi">2</span> <span class="ss">:c</span> <span class="mi">3</span><span class="p">})</span>        <span class="c1">; =&gt; nil</span>
+<span class="p">(</span><span class="ss">:a</span> <span class="nv">alpha</span><span class="p">)</span>                      <span class="c1">; =&gt; 1</span>
+<span class="p">(</span><span class="ss">:nope</span> <span class="nv">alpha</span><span class="p">)</span>                   <span class="c1">; =&gt; nil</span>
 
 <span class="c1">;; You can specify default values in either case</span>
-<span class="p">(</span><span class="ss">:nope</span> <span class="p">{</span><span class="ss">:a</span> <span class="mi">1</span> <span class="ss">:b</span> <span class="mi">2</span> <span class="ss">:c</span> <span class="mi">3</span><span class="p">}</span> <span class="s">&quot;default&quot;</span><span class="p">)</span>  <span class="c1">; =&gt; &quot;default&quot;</span>
-<span class="p">({</span><span class="ss">:a</span> <span class="mi">1</span> <span class="ss">:b</span> <span class="mi">2</span> <span class="ss">:c</span> <span class="mi">3</span><span class="p">}</span> <span class="ss">:oops</span> <span class="mi">72</span><span class="p">)</span>     <span class="c1">; =&gt; 72</span>
+<span class="p">(</span><span class="ss">:nope</span> <span class="nv">alpha</span> <span class="s">&quot;default&quot;</span><span class="p">)</span>         <span class="c1">; =&gt; &quot;default&quot;</span>
+<span class="p">(</span><span class="nf">alpha</span> <span class="ss">:oops</span> <span class="mi">72</span><span class="p">)</span>                <span class="c1">; =&gt; 72</span>
 </pre></div></div></div>
 </div>
 </div>
@@ -4372,15 +4205,15 @@ Commas are whitespace
 <div class="sectionbody" style="max-width:45em">
 <div class="listingblock">
 <div class="content"><div class="highlight"><pre><span class="p">(</span><span class="kd">ns </span><span class="nv">demo.core</span> <span class="s">&quot;Optional docstring&quot;</span>
-  <span class="p">(</span><span class="nf">require</span> <span class="p">[</span><span class="nv">compojure.route</span> <span class="ss">:as</span> <span class="nv">route</span><span class="p">]</span>
-           <span class="p">[</span><span class="nv">clojure.data.json</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">json-str</span> <span class="nv">read-json</span><span class="p">]]</span>
-           <span class="p">[</span><span class="nv">clojure.tools.logging</span> <span class="ss">:refer</span> <span class="ss">:all</span><span class="p">))</span>
+  <span class="p">(</span><span class="ss">:require</span> <span class="p">[</span><span class="nv">compojure.route</span> <span class="ss">:as</span> <span class="nv">route</span><span class="p">]</span>
+            <span class="p">[</span><span class="nv">clojure.data.json</span> <span class="ss">:refer</span> <span class="p">[</span><span class="nv">json-str</span> <span class="nv">read-json</span><span class="p">]]</span>
+            <span class="p">[</span><span class="nv">clojure.tools.logging</span> <span class="ss">:refer</span> <span class="ss">:all</span><span class="p">))</span>
 
-<span class="p">(</span><span class="nf">route/not-found</span> <span class="s">&quot;Page not found&quot;</span><span class="p">)</span>  <span class="c1">; Using explicit namespace</span>
+<span class="p">(</span><span class="nf">route/not-found</span> <span class="s">&quot;Page not found&quot;</span><span class="p">)</span>  <span class="c1">; Explicit namespace</span>
 
-<span class="p">(</span><span class="nf">read-json</span> <span class="s">&quot;{\&quot;abc\&quot;: 123}&quot;</span><span class="p">)</span>        <span class="c1">; Import direct from namespace</span>
+<span class="p">(</span><span class="nf">read-json</span> <span class="s">&quot;{\&quot;abc\&quot;: 123}&quot;</span><span class="p">)</span>        <span class="c1">; Direct import</span>
 
-<span class="p">(</span><span class="nf">debug</span> <span class="s">&quot;This is a log statement&quot;</span><span class="p">)</span>   <span class="c1">; From compojure.tools.logging</span>
+<span class="p">(</span><span class="nf">debug</span> <span class="s">&quot;This is a log statement&quot;</span><span class="p">)</span>   <span class="c1">; From tools.logging</span>
 </pre></div></div></div>
 <ul class="">
 <li>
@@ -4551,7 +4384,7 @@ As a bonus, the compiler will verify that your recursion is in tail-position
 <div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nf">System/getProperty</span> <span class="s">&quot;os.name&quot;</span><span class="p">)</span>  <span class="c1">; =&gt; &quot;Mac OS X&quot;</span>
 
 <span class="c1">;; Call the &quot;startsWith&quot; method on the object &quot;abcdef&quot; with</span>
-<span class="c1">;; the argument &quot;abc&quot;</span>
+<span class="c1">;; the argument &quot;abc&quot;:  &quot;abcdef&quot;.startsWith(&quot;abc&quot;)</span>
 <span class="p">(</span><span class="nf">.startsWith</span> <span class="s">&quot;abcdef&quot;</span> <span class="s">&quot;abc&quot;</span><span class="p">)</span>    <span class="c1">; =&gt; true</span>
 
 <span class="p">(</span><span class="k">def </span><span class="nv">java-map</span> <span class="p">(</span><span class="k">new </span><span class="nv">java.util.HashMap</span><span class="p">))</span>
@@ -4606,121 +4439,6 @@ These are not easy to google, but sometimes called the "thread-first"
 <span>
 <code>-&gt;</code> inserts results as the second argument to subsequent functions,
   <code>-&gt;&gt;</code> inserts results as the last argument
-</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_clojure_laziness">Clojure: Laziness</h1>
-<div class="sectionbody" style="max-width:45em">
-<div class="listingblock">
-<div class="content"><div class="highlight"><pre><span class="c1">;; (iterate) takes a function and a starting value and produces an infinite sequence</span>
-<span class="c1">;; (take n seq) lazily takes the first n members of a sequence</span>
-<span class="p">(</span><span class="nb">take </span><span class="mi">3</span> <span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">))</span>        <span class="c1">; =&gt; (1 2 3)</span>
-
-<span class="p">(</span><span class="nb">take </span><span class="mi">4</span> <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">* </span><span class="mi">3</span> <span class="nv">%</span><span class="p">)</span> <span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">)))</span>
-                                <span class="c1">; =&gt; (3 6 9 12)</span>
-
-<span class="p">(</span><span class="nb">nth </span><span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">)</span> <span class="mi">1000000</span><span class="p">)</span>   <span class="c1">; =&gt; 1000001</span>
-</pre></div></div></div>
-<ul class="">
-<li>
-<span>
-Many Clojure functions operate on <em>lazy</em> sequences
-</span>
-</li>
-<li>
-<span>
-Values are computed ("realized") only as they are needed
-</span>
-</li>
-<li>
-<span>
-This lets you operate on (theorically) infinite sequences
-</span>
-</li>
-<li>
-<span>
-Beware of holding references to the heads of lazy sequences
-</span>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect1 slide">
-<h1 id="_clojure_concurrency_parallelism_and_state">Clojure: Concurrency, Parallelism and State</h1>
-<div class="sectionbody" style="max-width:45em">
-<ul class="">
-<li>
-<span>
-Clojure comes with four built-in constructs for managing state
-</span>
-</li>
-<li>
-<span>
-These are also used for concurrency management
-</span>
-<div class="hdlist"><table>
-<tr>
-<td class="hdlist1">
-Refs
-<br />
-</td>
-<td class="hdlist2">
-<p style="margin-top: 0;">
-Manage access to multiple memory locations in synchronous transactions
-</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Agents
-<br />
-</td>
-<td class="hdlist2">
-<p style="margin-top: 0;">
-Manage an async queue of updates to a single location
-</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Atoms
-<br />
-</td>
-<td class="hdlist2">
-<p style="margin-top: 0;">
-Manage atomic access to shared state
-</p>
-</td>
-</tr>
-<tr>
-<td class="hdlist1">
-Vars 
-<br />
-</td>
-<td class="hdlist2">
-<p style="margin-top: 0;">
-Manage access to dynamically-scoped global vars via thread isolation
-</p>
-</td>
-</tr>
-</table></div>
-</li>
-<li>
-<span>
-Other facilities: promises and futures
-</span>
-</li>
-<li>
-<span>
-Parallel calls: <code>pcalls</code>, <code>pvalues</code>, and <code>pmap</code>
-</span>
-</li>
-<li>
-<span>
-Also worth noting: the recently-unveiled <code>core.async</code>
 </span>
 </li>
 </ul>
@@ -4903,6 +4621,35 @@ Host language interoperability is slightly different
 </div>
 </div>
 <div class="sect1 slide">
+<h1 id="_clojurescript_javascript_interop">ClojureScript: Javascript Interop</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nf">js/alert</span> <span class="s">&quot;Hello, world!&quot;</span><span class="p">)</span>      <span class="c1">; =&gt; nil</span>
+
+<span class="p">(</span><span class="nf">.log</span> <span class="nv">js/console</span> <span class="s">&quot;Log message&quot;</span><span class="p">)</span> <span class="c1">; =&gt; nil</span>
+
+<span class="p">(</span><span class="nf">.-href</span> <span class="p">(</span><span class="nf">.-location</span> <span class="nv">js/document</span><span class="p">))</span> <span class="c1">; =&gt; http://localhost/</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Javascript objects live in the <code>js</code> namespace
+</span>
+</li>
+<li>
+<span>
+Calling methods works as in java: <code>(.method instance args)</code>
+</span>
+</li>
+<li>
+<span>
+Accessing fields of instances uses <code>(.-fieldname instance)</code>
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
 <h1 id="_tools_and_links">Tools and Links</h1>
 <div class="sectionbody" style="max-width:45em">
 <ul class="">
@@ -5003,14 +4750,320 @@ Example: try googling "clojure ns macro"
 </div>
 </div>
 <div class="sect1 slide">
-<h1 id="_see_also">See also</h1>
+<h1 id="_clojure_clojurescript_demo">Clojure / ClojureScript Demo</h1>
 <div class="sectionbody" style="max-width:45em">
+<div class="paragraph"><p>Demo stuff.  Possibly named-pool / http-kit.</p></div>
+<div class="paragraph"><p><a href="https://github.com/timgilbert/cljs-intro-demo">ClojureSript intro demo</a>.</p></div>
+<div class="paragraph"><p><a href="http://rigsomelight.com/2013/07/18/clojurescript-core-async-todos.html">Async todos</a>
+and <a href="http://rigsomelight.com/2013/08/12/clojurescript-core-async-dots-game.html">Async
+dots game</a></p></div>
 </div>
 </div>
 <div class="sect1 slide">
 <h1 id="_that_8217_s_it">That&#8217;s it</h1>
 <div class="sectionbody" style="max-width:45em">
 <div class="paragraph"><p>Questions?</p></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_appendices">Appendices</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph"><p>The following slides have some background on LISP and some more involved topics
+in Clojure. I&#8217;ve decided to skip them in the talk itself unless there&#8217;s extra time,
+but I&#8217;m leaving them in here just in case.</p></div>
+</div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_clojure_laziness">Clojure: Laziness</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="c1">;; (iterate) takes a function and a starting value and produces an infinite sequence</span>
+<span class="c1">;; (take n seq) lazily takes the first n members of a sequence</span>
+<span class="p">(</span><span class="nb">take </span><span class="mi">3</span> <span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">))</span>        <span class="c1">; =&gt; (1 2 3)</span>
+
+<span class="p">(</span><span class="nb">take </span><span class="mi">4</span> <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">* </span><span class="mi">3</span> <span class="nv">%</span><span class="p">)</span> <span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">)))</span>
+                                <span class="c1">; =&gt; (3 6 9 12)</span>
+
+<span class="p">(</span><span class="nb">nth </span><span class="p">(</span><span class="nb">iterate inc </span><span class="mi">1</span><span class="p">)</span> <span class="mi">1000000</span><span class="p">)</span>   <span class="c1">; =&gt; 1000001</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Many Clojure functions operate on <em>lazy</em> sequences
+</span>
+</li>
+<li>
+<span>
+Values are computed ("realized") only as they are needed
+</span>
+</li>
+<li>
+<span>
+This lets you operate on (theorically) infinite sequences
+</span>
+</li>
+<li>
+<span>
+Beware of holding references to the heads of lazy sequences
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_clojure_concurrency_parallelism_and_state">Clojure: Concurrency, Parallelism and State</h1>
+<div class="sectionbody" style="max-width:45em">
+<ul class="">
+<li>
+<span>
+Clojure comes with four built-in constructs for managing state
+</span>
+</li>
+<li>
+<span>
+These are also used for concurrency management
+</span>
+<div class="hdlist"><table>
+<tr>
+<td class="hdlist1">
+Refs
+<br />
+</td>
+<td class="hdlist2">
+<p style="margin-top: 0;">
+Manage access to multiple memory locations in synchronous transactions
+</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Agents
+<br />
+</td>
+<td class="hdlist2">
+<p style="margin-top: 0;">
+Manage an async queue of updates to a single location
+</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Atoms
+<br />
+</td>
+<td class="hdlist2">
+<p style="margin-top: 0;">
+Manage atomic access to shared state
+</p>
+</td>
+</tr>
+<tr>
+<td class="hdlist1">
+Vars 
+<br />
+</td>
+<td class="hdlist2">
+<p style="margin-top: 0;">
+Manage access to dynamically-scoped global vars via thread isolation
+</p>
+</td>
+</tr>
+</table></div>
+</li>
+<li>
+<span>
+Other facilities: promises and futures
+</span>
+</li>
+<li>
+<span>
+Parallel calls: <code>pcalls</code>, <code>pvalues</code>, and <code>pmap</code>
+</span>
+</li>
+<li>
+<span>
+Also worth noting: the recently-unveiled <code>core.async</code>
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_lisp_basics">Lisp: Basics</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span>                     <span class="c1">; =&gt; 18</span>
+<span class="p">(</span><span class="nb">/</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="mi">2</span><span class="p">)</span>               <span class="c1">; =&gt; 9</span>
+<span class="p">(</span><span class="nb">=</span> <span class="mi">9</span> <span class="p">(</span><span class="nb">/</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="mi">2</span><span class="p">))</span>         <span class="c1">; =&gt; T</span>
+<span class="p">(</span><span class="nb">=</span> <span class="mi">7</span> <span class="p">(</span><span class="nb">/</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">)</span> <span class="mi">2</span><span class="p">))</span>         <span class="c1">; =&gt; NIL</span>
+<span class="p">(</span><span class="nb">string-upcase</span> <span class="s">&quot;hello&quot;</span><span class="p">)</span>         <span class="c1">; =&gt; &quot;HELLO&quot;</span>
+<span class="p">(</span><span class="nv">string-concat</span> <span class="p">(</span><span class="nb">string-upcase</span> <span class="s">&quot;hello,&quot;</span><span class="p">)</span> <span class="s">&quot;there&quot;</span><span class="p">)</span>
+                                <span class="c1">; =&gt; &quot;HELLO,there&quot;</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Basic elements: numbers, strings, booleans, lists
+</span>
+</li>
+<li>
+<span>
+Things to be evaluated are "forms" (eg, lists input to the repl)
+</span>
+</li>
+<li>
+<span>
+When a list is evaluated, the first element is a function
+  and the rest are arguments
+</span>
+</li>
+<li>
+<span>
+Arguments are recursively evaluated one at a time from left to right
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_lisp_list_processing">Lisp: List Processing</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>                      <span class="c1">; =&gt; (1 2 3 4)</span>
+<span class="p">(</span><span class="nb">list</span> <span class="mi">1</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>            <span class="c1">; =&gt; (1 2 3 4)</span>
+<span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="p">(</span><span class="nb">+</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span>                <span class="c1">; =&gt; (1 (+ 1 1) 3 4)</span>
+<span class="p">(</span><span class="nb">car</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>                <span class="c1">; =&gt; 1</span>
+<span class="c1">;; Equivalent: (first &#39;(1 2 3 4))</span>
+<span class="p">(</span><span class="nb">cdr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span>                <span class="c1">; =&gt; (2 3 4)</span>
+<span class="c1">;; Equivalent: (rest &#39;(1 2 3 4))</span>
+<span class="p">(</span><span class="nb">cadadr</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="p">(</span><span class="mi">20</span> <span class="mi">30</span><span class="p">)</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span><span class="p">))</span>     <span class="c1">; =&gt; 30</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+The quote macro <code>'</code> prevents items from being evaluated
+</span>
+</li>
+<li>
+<span>
+The function <code>(list x y z)</code> evaluates to the list <code>(x y z)</code>
+</span>
+</li>
+<li>
+<span>
+<code>car</code> and <code>cdr</code> are names derived from from the names of
+  registers on the IBM 704
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_lisp_functions">Lisp: Functions</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nb">defun</span> <span class="nv">square</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span>
+  <span class="p">(</span><span class="nb">*</span> <span class="nv">x</span> <span class="nv">x</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">square</span> <span class="mi">4</span><span class="p">)</span>                      <span class="c1">; =&gt; 16</span>
+<span class="p">(</span><span class="nb">mapcar</span> <span class="nf">#&#39;</span><span class="nv">square</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">))</span>  <span class="c1">; =&gt; (1 4 9 16 25)</span>
+<span class="p">(</span><span class="nb">mapcar</span> <span class="nf">#&#39;</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nb">+</span> <span class="nv">x</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="o">&#39;</span><span class="p">(</span><span class="mi">10</span> <span class="mi">20</span> <span class="mi">30</span><span class="p">))</span>            <span class="c1">; =&gt; (15 25 35)</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Functions are first-class (can be passed as arguments, returned
+  from other functions, etc)
+</span>
+</li>
+<li>
+<span>
+The usual functional programming suspects exist (<code>map</code>, <code>reduce</code>,
+  <code>filter</code>, etc)
+</span>
+</li>
+<li>
+<span>
+Common lisp needs sharp-quote (<code>#'</code>) for function quoting
+</span>
+</li>
+<li>
+<span>
+Lambda expressions exist (and must also be sharp-quoted)
+</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_lisp_recursion">Lisp: Recursion</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nb">defun</span> <span class="nv">sum-list</span> <span class="p">(</span><span class="nv">input</span><span class="p">)</span>
+  <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">null</span> <span class="nv">input</span><span class="p">)</span>
+      <span class="mi">0</span>
+      <span class="p">(</span><span class="nb">+</span> <span class="p">(</span><span class="nb">car</span> <span class="nv">input</span><span class="p">)</span>
+         <span class="p">(</span><span class="nv">sum-list</span> <span class="p">(</span><span class="nb">cdr</span> <span class="nv">input</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="nv">sum-list</span> <span class="o">&#39;</span><span class="p">(</span><span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">))</span>          <span class="c1">; =&gt; 12</span>
+<span class="p">(</span><span class="nv">sum-list</span> <span class="o">&#39;</span><span class="p">())</span>               <span class="c1">; =&gt; 0</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Lisp includes both functional and imperative constructs
+</span>
+</li>
+<li>
+<span>
+Lists lend themselves well to recursive processing
+</span>
+</li>
+</ul>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Note</div>
+<div class="paragraph"><p>This example is not tail-call optimised</p></div>
+</div></div>
+</div>
+</div>
+<div class="sect1 slide">
+<h1 id="_lisp_macros">Lisp: Macros</h1>
+<div class="sectionbody" style="max-width:45em">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="p">(</span><span class="nb">defmacro</span> <span class="nv">if-not</span> <span class="p">(</span><span class="kt">condition</span> <span class="nv">true-form</span> <span class="nv">false-form</span><span class="p">)</span>
+  <span class="o">`</span><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="nb">not</span> <span class="o">,</span><span class="kt">condition</span><span class="p">)</span> <span class="o">,</span><span class="nv">true-form</span> <span class="o">,</span><span class="nv">false-form</span><span class="p">)))</span>
+
+<span class="p">(</span><span class="nv">if-not</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="s">&quot;true-value&quot;</span> <span class="s">&quot;false-value&quot;</span><span class="p">)</span>
+<span class="c1">; =&gt; &quot;true-value&quot;</span>
+<span class="p">(</span><span class="nb">macroexpand-1</span> <span class="o">&#39;</span><span class="p">(</span><span class="nv">if-not</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">)</span> <span class="s">&quot;true-value&quot;</span> <span class="s">&quot;false-value&quot;</span><span class="p">))</span>
+<span class="o">&#39;</span> <span class="nv">=&gt;</span> <span class="p">(</span><span class="nv">IF</span> <span class="p">(</span><span class="nv">NOT</span> <span class="p">(</span><span class="nb">=</span> <span class="mi">3</span> <span class="mi">4</span><span class="p">))</span> <span class="s">&quot;true-value&quot;</span> <span class="s">&quot;false-value&quot;</span><span class="p">)</span>
+</pre></div></div></div>
+<ul class="">
+<li>
+<span>
+Lisp is <em>homoiconic</em>; its programs are comprised of lists
+</span>
+</li>
+<li>
+<span>
+That lends itself to code which manipulates or produces other code
+</span>
+</li>
+<li>
+<span>
+Macros can be used to invent your own control structures, by controlling
+  what elements are evaluated
+</span>
+</li>
+</ul>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph"><p>Next up: Clojure</p></div>
+</div></div>
 </div>
 </div>
 </body>
