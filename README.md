@@ -1,9 +1,11 @@
 cljs-intro-slides
 =================
 
-A slide deck for an intro to [ClojureScript](https://github.com/clojure/clojurescript/wiki‎)
-talk I'm giving at work. Slides created via [AsciiDoc](http://www.methods.co.nz/asciidoc/index.html).
+A slide deck for an intro to [Clojure](https://clojure.org/) / [ClojureScript](https://clojurescript.org/)
+talk I gave at work some time ago. Slides created via [AsciiDoc](http://www.methods.co.nz/asciidoc/index.html).
 All images from wikimedia commons.
+
+You can view the resulting slides online here: http://timgilbert.github.io/cljs-intro-slides/
 
 To build it:
 
